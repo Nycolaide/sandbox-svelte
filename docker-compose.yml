@@ -1,0 +1,28 @@
+services:
+  svx-sandbox:
+    container_name: svx-sandbox
+    build:
+      context: .
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    labels:
+      # Enable traefik
+      - 'traefik.enable=true'
+
+      # Router HTTPS
+      - 'traefik.http.routers.svx-sandbox.rule=Host(`sandbox.nycolaide.dev`)'
+      - 'traefik.http.routers.svx-sandbox.entrypoints=websecure'
+      - 'traefik.http.routers.svx-sandbox.tls=true'
+      - 'traefik.http.routers.svx-sandbox.tls.certresolver=letsencrypt'
+
+      # Router HTTP redirect to HTTPS
+      - 'traefik.http.routers.svx-sandbox-http.rule=Host(`sandbox.nycolaide.dev`)'
+      - 'traefik.http.routers.svx-sandbox-http.entrypoints=web'
+      - 'traefik.http.routers.svx-sandbox-http.middlewares=redirect-to-https'
+    networks:
+      - traefik_proxy
+
+networks:
+  traefik_proxy:
+    external: true
