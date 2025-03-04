@@ -2,7 +2,6 @@ name: Stop project
 
 on:
   workflow_dispatch:
-    inputs:
 
 jobs:
   launch:

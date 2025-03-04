@@ -2,7 +2,6 @@ name: Launch project
 
 on:
   workflow_dispatch:
-    inputs:
 
 jobs:
   launch:
