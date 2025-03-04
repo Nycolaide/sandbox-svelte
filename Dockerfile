@@ -1,4 +1,4 @@
-FROM node:20.16 AS base
+FROM node:20.18 AS base
 WORKDIR /usr/src/app
 
 # install with production (exclude devDependencies)
