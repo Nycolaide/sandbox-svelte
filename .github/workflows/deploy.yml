@@ -1,4 +1,4 @@
-name: Deploy to VPS
+name: Deploy Current
 
 on:
   push:
@@ -7,11 +7,31 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create .env file
+        run: |
+          echo "PUBLIC_MODE_PROD=false" >> .env
+          echo "VITE_GITHUB_TOKEN=key" >> .env
+          echo "PUBLIC_ANALYTICS_ACTIVATE=false" >> .env
+          echo "PUBLIC_GTM_ACTIVATE=false" >> .env
+          echo "PUBLIC_ANALYTICS_KEY=key" >> .env
+          echo "PUBLIC_GTM_KEY=key" >> .env
+
+      - name: Build Svelte project
+        run: npm run build
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v0.1.10
