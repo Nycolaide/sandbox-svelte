@@ -1,21 +1,29 @@
-name: Manual Workflow
+name: Start/Stop Manual Workflow
 
 on:
   workflow_dispatch:
     inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'World'
-        # Input has to be provided for the workflow to run
+      action:
+        description: 'Choose an action to perform: [start, stop]'
         required: true
-        # The data type of the input
         type: string
+        default: 'start'
 
 jobs:
   example-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo message
-        run: echo "Manual workflow executed!"
+      - name: Validate selection and execute action
+        run: |
+          case "${{ github.event.inputs.action }}" in
+            start)
+              echo "Executing START action..."
+              ;;
+            stop)
+              echo "Executing STOP action..."
+              ;;
+            *)
+              echo "Invalid action specified: '${{ github.event.inputs.action }}'. Please choose 'start' or 'stop'."
+              exit 1
+              ;;
+          esac
