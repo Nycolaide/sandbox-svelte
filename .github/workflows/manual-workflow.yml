@@ -1,21 +1,36 @@
-name: Manual Workflow
+name: Manage Docker
 
 on:
   workflow_dispatch:
     inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'World'
-        # Input has to be provided for the workflow to run
+      action:
+        description: 'Choose an action to perform: [start, stop]'
         required: true
-        # The data type of the input
         type: string
+        default: 'start'
 
 jobs:
-  example-job:
+  docker-compose-job:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Echo message
-        run: echo "Manual workflow executed!"
+      - name: Execute action on the server via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          port: 55555
+          script: |
+            cd apps/sandbox/sveltekit
+            if [ "${{ github.event.inputs.action }}" = "start" ]; then
+              echo "Starting the Docker Compose stack..."
+              docker compose up -d
+            elif [ "${{ github.event.inputs.action }}" = "stop" ]; then
+              echo "Stopping the Docker Compose stack..."
+              docker compose down
+            else
+              echo "Invalid action: '${{ github.event.inputs.action }}'. Use 'start' or 'stop'."
+              exit 1
+            fi
