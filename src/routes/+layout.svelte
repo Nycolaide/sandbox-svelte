@@ -16,6 +16,7 @@
 	import 'mingcute_icon/font/Mingcute.css';
 
 	import { App } from 'mytril/components';
+	import Rgpd from '$lib/components/rgpd.svelte';
 
 	let { children } = $props();
 </script>
@@ -34,6 +35,8 @@
 			</p>
 		</footer>
 	</div>
+
+	<Rgpd />
 </App>
 
 <style>
