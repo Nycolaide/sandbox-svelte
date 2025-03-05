@@ -29,7 +29,8 @@ jobs:
           port: 55555
           script: |
             cd apps/sandbox/sveltekit
-            # nvm use 20.18
+            docker compose stop
+            docker compose rm
             git pull origin learn-optimisation
             # yarn
             # yarn build
