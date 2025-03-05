@@ -1,7 +1,10 @@
 <script lang="ts">
 	import Header from './Header.svelte';
 	import '../app.css';
-	
+
+	// icons
+	import 'mingcute_icon/font/Mingcute.css';
+
 	let { children } = $props();
 </script>
 
