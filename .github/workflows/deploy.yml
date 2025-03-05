@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - docker
+      - learn-optimisation
 
 jobs:
   deploy:
