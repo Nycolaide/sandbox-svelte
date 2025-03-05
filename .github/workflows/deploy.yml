@@ -29,7 +29,7 @@ jobs:
           port: 55555
           script: |
             cd apps/sandbox/sveltekit
-            git pull origin docker
+            git pull origin learn-optimisation
             yarn
             yarn build
             docker compose build
