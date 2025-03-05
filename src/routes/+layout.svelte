@@ -2,25 +2,39 @@
 	import Header from './Header.svelte';
 	import '../app.css';
 
+	import '@fontsource/geist-sans/100.css';
+	import '@fontsource/geist-sans/200.css';
+	import '@fontsource/geist-sans/300.css';
+	import '@fontsource/geist-sans/400.css';
+	import '@fontsource/geist-sans/500.css';
+	import '@fontsource/geist-sans/600.css';
+	import '@fontsource/geist-sans/700.css';
+	import '@fontsource/geist-sans/800.css';
+	import '@fontsource/geist-sans/900.css';
+
 	// icons
 	import 'mingcute_icon/font/Mingcute.css';
+
+	import { App } from 'mytril/components';
 
 	let { children } = $props();
 </script>
 
-<div class="app">
-	<Header />
+<App>
+	<div class="app">
+		<Header />
 
-	<main>
-		{@render children()}
-	</main>
+		<main>
+			{@render children()}
+		</main>
 
-	<footer>
-		<p>
-			visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to learn about SvelteKit
-		</p>
-	</footer>
-</div>
+		<footer>
+			<p>
+				visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to learn about SvelteKit
+			</p>
+		</footer>
+	</div>
+</App>
 
 <style>
 	.app {
