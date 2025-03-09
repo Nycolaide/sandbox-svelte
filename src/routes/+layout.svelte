@@ -25,6 +25,8 @@
 	<div class="app">
 		<Header />
 
+		learn-optimisation
+
 		<main>
 			{@render children()}
 		</main>
